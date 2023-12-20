@@ -53,4 +53,4 @@ for rank in ["S", "A", "B"]:
                 response = requests.get(img["url"])
                 image = Image.open(BytesIO(response.content))
                 # 列に画像を配置
-                cols[j].image(image, width=100)  # widthは適宜調整
+                cols[j].image(image, caption=img["url"].split('/')[-1].split('.')[0], width=100)
