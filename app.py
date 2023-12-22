@@ -499,24 +499,25 @@ images_data = [
     "rank": "S+"
   }
 ]
+
 # 各ランクごとに画像を表示
 for rank in ["S+", "S", "A+", "A", "B", "C"]:
-    images = [img for img in images_data if img["rank"] == rank]
+  images = [img for img in images_data if img["rank"] == rank]
+  
+  # 画像がある場合のみ処理
+  if images:
+    # ランク表示用の列と8個の画像表示用の列を作成
+    # 最初の行にランクを表示
+    st.write(rank)
     
-    # 画像がある場合のみ処理
-    if images:
-        # ランク表示用の列と8個の画像表示用の列を作成
-        # 最初の行にランクを表示
-        st.write(rank)
-        
-        # 画像表示用の列を設定
-        for i in range(0, len(images), 8):
-            cols = st.columns(8)
-            # 各画像を表示
-            for j, img in enumerate(images[i:i+8]):
-                # 画像の読み込み
-                response = requests.get(img["url"])
-                image = Image.open(BytesIO(response.content))
-                # 列に画像を配置
-                # cols[j].image(image, caption=img["url"].split('/')[-1].split('.')[0], width=100)
-                cols[j].image(image, width=100)
+    # 画像表示用の列を設定
+    for i in range(0, len(images), 8):
+      cols = st.columns(8)
+      # 各画像を表示
+      for j, img in enumerate(images[i:i+8]):
+        # 画像の読み込み
+        response = requests.get(img["url"])
+        image = Image.open(BytesIO(response.content))
+        # 列に画像を配置
+        # cols[j].image(image, caption=img["url"].split('/')[-1].split('.')[0], width=100)
+        cols[j].image(image, width=100)
